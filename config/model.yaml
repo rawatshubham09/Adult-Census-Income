@@ -1,0 +1,47 @@
+grid_search:
+  class: GridSearchCV
+  module: sklearn.model_selection
+  params:
+    cv: 5
+    verbose: 2
+model_selection:
+  module_0:
+    class: LogisticRegression
+    module: sklearn.linear_model
+    params:
+      fit_intercept: true
+    search_param_grid:
+      fit_intercept:
+      - true
+      - false
+  module_1:
+    class: RandomForestClassifier
+    module: sklearn.ensemble
+    params:
+      min_samples_leaf: 3
+    search_param_grid:
+      min_samples_leaf:
+        - 6
+        - 3
+        - 2
+      max_depth:
+        - 40
+        - 55
+        - 65
+        - 70
+
+  module_2:
+    class: XGBClassifier
+    module: xgboost
+    params:
+      booster: gbtree
+    search_param_grid:
+      eta:
+        - 0.3
+        - 0.5
+        - 0.7
+      max_depth:
+        - 2
+        - 4
+        - 6
+        - 8

@@ -1,0 +1,43 @@
+columns:
+  age: int64
+  workclass: str
+  fnlwgt: int64
+  education: str
+  education-num: int64
+  marital-status: str
+  occupation: str
+  relationship: str
+  race: str
+  sex: str
+  capital-gain: int64
+  capital-loss: int64
+  country: str
+  salary: str
+  hours-per-week: int64
+
+numerical_columns:
+  - age
+  - capital-gain
+  - capital-loss
+  - hours-per-week
+
+
+
+categorical_columns:
+  - workclass
+  - education
+  - marital-status
+  - occupation
+  - relationship
+  - race
+  - sex
+
+no_of_column: 15
+
+
+target_column: salary
+
+domain_value:
+  salary:
+    - " <=50K"
+    - " >50K"
