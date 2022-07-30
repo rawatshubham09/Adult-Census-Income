@@ -188,7 +188,7 @@ def update_model_config():
         model_config = read_yaml_file(file_path=MODEL_CONFIG_FILE_PATH)
         return render_template('update_model.html', result={"model_config": model_config})
 
-    except  Exception as e:
+    except Exception as e:
         logging.exception(e)
         return str(e)
 
