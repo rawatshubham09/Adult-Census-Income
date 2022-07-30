@@ -1,0 +1,164 @@
+{% extends 'header.html' %}
+
+{% block head %}
+
+
+<title>Adult Census Income Estimator</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+
+
+        <form action="/predict" method="post">
+            <legend>Adult Census Income Predictor Form</legend>
+            <div class="mb-3">
+                <label class="form-label">Age</label>
+                <input class="form-control" type="text" name="age" placeholder="Enter the Age"
+                    required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Work Class</label>
+                <input class="form-control" type="text" name="workclass" placeholder="Enter Work Class Info"
+                    required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Final Weight</label>
+                <input class="form-control" type="text" name="fnlwgt"
+                    placeholder="Enter a value of Final Weight" />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Education</label>
+                <input class="form-control" type="text" name="education" placeholder="Highest Education Qualification of Customer"
+                    required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Education Number</label>
+                <input class="form-control" type="text" name="education-num"
+                    placeholder="Education Level no." required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Marital Status</label>
+                <input class="form-control" type="text" name="marital-status" placeholder="Marital Status of Customer"
+                    required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Occupation</label>
+                <input class="form-control" type="text" name="occupation" placeholder="Occupation of Customer"
+                    required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Relationship Status</label>
+                <input class="form-control" type="text" name="relationship"
+                    placeholder="Relationship Status of customer" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Race</label>
+                <input class="form-control" type="text" name="race"
+                    placeholder="Customer Race" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <input class="form-control" type="text" name="sex"
+                    placeholder="Male or Female" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Relationship Status</label>
+                <input class="form-control" type="text" name="relationship"
+                    placeholder="Relationship Status of customer" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Capital Gain</label>
+                <input class="form-control" type="text" name="capital-gain"
+                    placeholder="Capital Gain" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Capital Loss</label>
+                <input class="form-control" type="text" name="capital-loss"
+                    placeholder="Capital loss" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Country</label>
+                <input class="form-control" type="text" name="country"
+                    placeholder="Country of customer" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Salary</label>
+                <select class="form-control" name="salary" placeholder="Salary of customer"
+                    required>
+
+                    <option value=" <=50K">
+                        Less Then $ 50k
+                    </option>
+                    <option value=" >50K">
+                        More then $ 50K
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+
+                <input class="btn btn-primary" type="submit" value="Predict Median House Value" required />
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              Adult Census Income Value
+            </div>
+            <div class="card-body">
+        {% if context['census_data'] is not none %}
+        <table class="table table-striped">
+            <caption>Adult Census Income Value Prediction </caption>
+            <tr>
+                <th>Input Feature</th>
+                <th>Feature Value</th>
+
+            </tr>
+            {% for column,value in context['census_data'].items() %}
+
+
+
+            <tr>
+                <td>{{column}}</td>
+                <td>{{value[0]}}</td>
+            </tr>
+
+            {% endfor %}
+            <tr>
+
+                <td>median_census_value </td>
+                <td>
+                    {{ context['median_census_value'] }}
+                </td>
+            </tr>
+        </table>
+
+        {% else %}
+
+              <h5 class="card-title">Submit Form</h5>
+              <p class="card-text">Kindly provide necessary information to estimate Income</p>
+
+
+
+        {% endif %}
+        Go to <a href="/" class="btn btn-primary">Home</a>
+    </div>
+</div>
+    </div>
+
+    {% endblock %}

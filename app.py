@@ -1,6 +1,5 @@
 from flask import Flask, request
 from censusIncome.util.util import read_yaml_file, write_yaml_file
-from matplotlib.style import context
 from censusIncome.logger import logging
 from censusIncome.exception import CensusException
 import os
@@ -33,7 +32,7 @@ app = Flask(__name__)
 @app.route('/artifact', defaults={'req_path': 'censusIncome'})
 @app.route('/artifact/<path:req_path>')
 def render_artifact_dir(req_path):
-    os.makedirs("census", exist_ok=True)
+    os.makedirs("censusIncome", exist_ok=True)
     # Joining the base and the requested path
     print(f"req_path: {req_path}")
     abs_path = os.path.join(req_path)
@@ -141,7 +140,7 @@ def predict():
         census_predictor = CensusPredictor(model_dir=MODEL_DIR)
         median_census_value = census_predictor.predict(X=census_df)
         context = {
-            CENSUS_DATA_KEY: census_data.get_housing_data_as_dict(),
+            CENSUS_DATA_KEY: census_data.get_census_data_as_dict(),
             MEDIAN_CENSUS_VALUE_KEY: median_census_value,
         }
         return render_template('predict.html', context=context)

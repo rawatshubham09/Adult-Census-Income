@@ -46,15 +46,15 @@ class CensusData:
         except Exception as e:
             raise CensusException(e, sys) from e
 
-    def get_housing_input_data_frame(self):
+    def get_census_input_data_frame(self):
 
         try:
-            housing_input_dict = self.get_housing_data_as_dict()
-            return pd.DataFrame(housing_input_dict)
+            census_input_dict = self.get_census_data_as_dict()
+            return pd.DataFrame(census_input_dict)
         except Exception as e:
             raise CensusException(e, sys) from e
 
-    def get_housing_data_as_dict(self):
+    def get_census_data_as_dict(self):
         try:
             input_data = {
                 'age': [self.age],
