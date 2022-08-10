@@ -23,7 +23,6 @@ class CensusData:
                  capital_gain: int,
                  capital_loss: int,
                  country: str,
-                 salary: str,
                  hours_per_week: int
                  ):
         try:
@@ -41,7 +40,6 @@ class CensusData:
             self.capital_loss = capital_loss,
             self.hours_per_week = hours_per_week,
             self.country = country,
-            self.salary = salary
 
         except Exception as e:
             raise CensusException(e, sys) from e
@@ -58,21 +56,21 @@ class CensusData:
         try:
             input_data = {
                 'age': [self.age],
-                'workclass': [self.work_class],
+                'work_class': [self.work_class],
                 'fnlwgt': [self.fnlwgt],
                 'education': [self.education],
-                'education-num': [self.education_num],
-                'marital-status': [self.marital_status],
+                'education_num': [self.education_num],
+                'marital_status': [self.marital_status],
                 'occupation': [self.occupation],
                 'relationship': [self.relationship],
                 'race': [self.race],
                 'sex': [self.sex],
-                'capital-gain': [self.capital_gain],
-                'capital-loss': [self.capital_loss],
-                'hours-per-week': [self.hours_per_week],
-                'country': [self.country],
-                'salary': [self.salary]
+                'capital_gain': [self.capital_gain],
+                'capital_loss': [self.capital_loss],
+                'hours_per_week': [self.hours_per_week],
+                'country': [self.country]
             }
+            print(input_data)
             return input_data
         except Exception as e:
             raise CensusException(e, sys)

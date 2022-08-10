@@ -4,9 +4,6 @@ import os
 from censusIncome.exception import CensusException
 from censusIncome.logger import logging
 from censusIncome.entity.artifact_entity import DataIngestionArtifact
-#import tarfile
-import zipfile
-import numpy as np
 from six.moves import urllib
 import pandas as pd
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -22,7 +19,7 @@ class DataIngestion:
         except Exception as e:
             raise CensusException(e, sys)
 
-    def download_census_data(self, ) -> str:
+    def download_census_data(self, ) -> None:
         try:
             # extraction remote url to download dataset
             download_url = self.data_ingestion_config.dataset_download_url
@@ -37,45 +34,27 @@ class DataIngestion:
             tgz_file_path = os.path.join(tgz_download_dir, census_file_name)
 
             logging.info(f"Downloading file from :[{download_url}] into :[{tgz_file_path}]")
+
             urllib.request.urlretrieve(download_url, tgz_file_path)
+
             logging.info(f"File :[{tgz_file_path}] has been downloaded successfully.")
-            return tgz_file_path
-
-        except Exception as e:
-            raise CensusException(e, sys) from e
-
-    def extract_tgz_file(self, tgz_file_path: str):
-        try:
-            raw_data_dir = self.data_ingestion_config.raw_data_dir
-
-            if os.path.exists(raw_data_dir):
-                os.remove(raw_data_dir)
-
-            os.makedirs(raw_data_dir, exist_ok=True)
-
-            logging.info(f"Extracting tgz file: [{tgz_file_path}] into dir: [{raw_data_dir}]")
-
-            with zipfile.ZipFile(tgz_file_path, 'r') as zip_ref:
-                zip_ref.extractall(raw_data_dir)
-
-            logging.info(f"Extraction completed")
 
         except Exception as e:
             raise CensusException(e, sys) from e
 
     def split_data_as_train_test(self) -> DataIngestionArtifact:
         try:
-            raw_data_dir = self.data_ingestion_config.raw_data_dir
+            tgz_data_dir = self.data_ingestion_config.tgz_download_dir
 
-            file_name = os.listdir(raw_data_dir)[0]
+            file_name = os.listdir(tgz_data_dir)[0]
 
-            census_file_path = os.path.join(raw_data_dir, file_name)
+            census_file_path = os.path.join(tgz_data_dir, file_name)
 
             logging.info(f"Reading csv file: [{census_file_path}]")
 
             census_data_frame = pd.read_csv(census_file_path)
 
-            census_data_frame["salary"] = census_data_frame["salary"].apply(lambda x: 1 if x == ' <=50k' else 0)
+            census_data_frame["salary"] = census_data_frame["salary"].apply(lambda x: 1 if x == "<=50K" else 0)
 
             logging.info(f"Splitting data into train and test")
 
@@ -85,8 +64,8 @@ class DataIngestion:
             split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
 
             for train_index, test_index in split.split(census_data_frame, census_data_frame["salary"]):
-                strat_train_set = census_data_frame.loc[train_index].drop(["salary"], axis=1)
-                strat_test_set = census_data_frame.loc[test_index].drop(["salary"], axis=1)
+                strat_train_set = census_data_frame.loc[train_index]
+                strat_test_set = census_data_frame.loc[test_index]
 
             train_file_path = os.path.join(self.data_ingestion_config.ingested_train_dir,
                                            file_name)
@@ -117,9 +96,13 @@ class DataIngestion:
 
     def initiate_data_ingestion(self) -> DataIngestionArtifact:
         try:
+
             tgz_file_path = self.download_census_data()
-            self.extract_tgz_file(tgz_file_path=tgz_file_path)
+            print(tgz_file_path)
+
+            # self.extract_tgz_file(tgz_file_path=tgz_file_path)
             return self.split_data_as_train_test()
+
         except Exception as e:
             raise CensusException(e, sys) from e
 

@@ -1,32 +1,30 @@
 columns:
   age: int64
-  workclass: str
+  work_class: str
   fnlwgt: int64
   education: str
-  education-num: int64
-  marital-status: str
+  education_num: int64
+  marital_status: str
   occupation: str
   relationship: str
   race: str
   sex: str
-  capital-gain: int64
-  capital-loss: int64
+  capital_gain: int64
+  capital_loss: int64
   country: str
   salary: str
-  hours-per-week: int64
+  hours_per_week: int64
 
 numerical_columns:
   - age
-  - capital-gain
-  - capital-loss
-  - hours-per-week
-
-
+  - capital_gain
+  - capital_loss
+  - hours_per_week
 
 categorical_columns:
-  - workclass
+  - work_class
   - education
-  - marital-status
+  - marital_status
   - occupation
   - relationship
   - race
@@ -39,5 +37,5 @@ target_column: salary
 
 domain_value:
   salary:
-    - " <=50K"
-    - " >50K"
+    - "<=50K"
+    - ">50K"

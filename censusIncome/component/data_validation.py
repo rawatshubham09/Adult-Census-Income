@@ -73,6 +73,10 @@ class DataValidation:
             # getting data
             train_df, test_df = self.get_train_and_test_df()
 
+            print("-" * 30)
+            print("test and train df shape : ", train_df.shape, test_df.shape)
+            print("-" * 30)
+
             # 1. Number of Column
             no_of_col = val_data["no_of_column"]
             if train_df.shape[1] == no_of_col and test_df.shape[1] == no_of_col:
@@ -83,7 +87,7 @@ class DataValidation:
 
             # 2. Check the  columns datatype
             columns_dataset = val_data["columns"]
-            columns_name = columns_dataset.key()
+            columns_name = columns_dataset.keys()
 
             if columns_dataset:                                             # Checking for columns_dataset
 

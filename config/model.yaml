@@ -23,25 +23,8 @@ model_selection:
       min_samples_leaf:
         - 6
         - 3
-        - 2
       max_depth:
         - 40
         - 55
         - 65
         - 70
-
-  module_2:
-    class: XGBClassifier
-    module: xgboost
-    params:
-      booster: gbtree
-    search_param_grid:
-      eta:
-        - 0.3
-        - 0.5
-        - 0.7
-      max_depth:
-        - 2
-        - 4
-        - 6
-        - 8

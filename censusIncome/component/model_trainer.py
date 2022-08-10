@@ -50,6 +50,7 @@ class ModelTrainer:
         try:
             logging.info(f"Loading transformed training dataset")
             transformed_train_file_path = self.data_transformation_artifact.transformed_train_file_path
+
             train_array = load_numpy_array_data(file_path=transformed_train_file_path)
 
             logging.info(f"Loading transformed testing dataset")
@@ -113,11 +114,3 @@ class ModelTrainer:
     def __del__(self):
         logging.info(f"{'>>' * 30}Model trainer log completed.{'<<' * 30} ")
 
-# loading transformed training and testing dataset
-# reading model config file
-# getting best model on training dataset
-# evaluation models on both training & testing dataset -->model object
-# loading preprocessing object
-# custom model object by combining both preprocessing obj and model obj
-# saving custom model object
-# return model_trainer_artifact

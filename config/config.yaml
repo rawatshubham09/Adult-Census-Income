@@ -3,7 +3,7 @@ training_pipeline_config:
   artifact_dir: artifact
 
 data_ingestion_config:
-  dataset_download_url: https://www.kaggle.com/datasets/uciml/adult-census-income/download?datasetVersionNumber=3
+  dataset_download_url: https://raw.githubusercontent.com/rawatshubham09/Dataset_for_projects/main/Adult.csv
   raw_data_dir: raw_data
   tgz_download_dir: tgz_data
   ingested_dir: ingested_data
@@ -27,7 +27,9 @@ data_transformation_config:
 model_trainer_config:
   trained_model_dir: trained_model
   model_file_name: model.pkl
-  base_accuracy: 0.8
+  base_accuracy: 0.6
+  model_config_dir: config
+  model_config_file_name: model.yaml
 
 
 model_evaluation_config:

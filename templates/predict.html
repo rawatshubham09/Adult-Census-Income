@@ -21,7 +21,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Work Class</label>
-                <input class="form-control" type="text" name="workclass" placeholder="Enter Work Class Info"
+                <input class="form-control" type="text" name="work_class" placeholder="Enter Work Class Info"
                     required />
 
             </div>
@@ -39,12 +39,12 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Education Number</label>
-                <input class="form-control" type="text" name="education-num"
+                <input class="form-control" type="text" name="education_num"
                     placeholder="Education Level no." required />
             </div>
             <div class="mb-3">
                 <label class="form-label">Marital Status</label>
-                <input class="form-control" type="text" name="marital-status" placeholder="Marital Status of Customer"
+                <input class="form-control" type="text" name="marital_status" placeholder="Marital Status of Customer"
                     required />
             </div>
             <div class="mb-3">
@@ -71,20 +71,14 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Relationship Status</label>
-                <input class="form-control" type="text" name="relationship"
-                    placeholder="Relationship Status of customer" required />
-            </div>
-
-            <div class="mb-3">
                 <label class="form-label">Capital Gain</label>
-                <input class="form-control" type="text" name="capital-gain"
+                <input class="form-control" type="text" name="capital_gain"
                     placeholder="Capital Gain" required />
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Capital Loss</label>
-                <input class="form-control" type="text" name="capital-loss"
+                <input class="form-control" type="text" name="capital_loss"
                     placeholder="Capital loss" required />
             </div>
 
@@ -95,18 +89,11 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Salary</label>
-                <select class="form-control" name="salary" placeholder="Salary of customer"
-                    required>
-
-                    <option value=" <=50K">
-                        Less Then $ 50k
-                    </option>
-                    <option value=" >50K">
-                        More then $ 50K
-                    </option>
-                </select>
+                <label class="form-label">Work Per Week</label>
+                <input class="form-control" type="text" name="hours_per_week"
+                    placeholder="In hours" required />
             </div>
+
             <div class="mb-3">
 
                 <input class="btn btn-primary" type="submit" value="Predict Median House Value" required />

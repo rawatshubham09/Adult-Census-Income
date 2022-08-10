@@ -43,17 +43,24 @@ class Pipeline(Thread):
 
     def start_data_ingestion(self) -> DataIngestionArtifact:
         try:
+            print("**"*50)
+            print("inside start_data_ingestion")
             data_ingestion = DataIngestion(data_ingestion_config=self.config.get_data_ingestion_config())
+            print("ok")
             return data_ingestion.initiate_data_ingestion()
+
         except Exception as e:
             raise CensusException(e, sys) from e
 
     def start_data_validation(self, data_ingestion_artifact: DataIngestionArtifact) \
             -> DataValidationArtifact:
         try:
+            print("**" * 50)
+            print("inside start_data_validation")
             data_validation = DataValidation(data_validation_config=self.config.get_data_validation_config(),
                                              data_ingestion_artifact=data_ingestion_artifact
                                              )
+            print("ok")
             return data_validation.initiate_data_validation()
         except Exception as e:
             raise CensusException(e, sys) from e
@@ -63,20 +70,26 @@ class Pipeline(Thread):
                                   data_validation_artifact: DataValidationArtifact
                                   ) -> DataTransformationArtifact:
         try:
+            print("**" * 50)
+            print("inside start_data_transformation")
             data_transformation = DataTransformation(
                 data_transformation_config=self.config.get_data_transformation_config(),
                 data_ingestion_artifact=data_ingestion_artifact,
                 data_validation_artifact=data_validation_artifact
             )
+            print("ok")
             return data_transformation.initiate_data_transformation()
         except Exception as e:
             raise CensusException(e, sys)
 
     def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
         try:
+            print("**" * 50)
+            print("inside start_model_trainer")
             model_trainer = ModelTrainer(model_trainer_config=self.config.get_model_trainer_config(),
                                          data_transformation_artifact=data_transformation_artifact
                                          )
+            print("ok")
             return model_trainer.initiate_model_trainer()
         except Exception as e:
             raise CensusException(e, sys) from e
@@ -85,21 +98,27 @@ class Pipeline(Thread):
                                data_validation_artifact: DataValidationArtifact,
                                model_trainer_artifact: ModelTrainerArtifact) -> ModelEvaluationArtifact:
         try:
+            print("**" * 50)
+            print("inside start_model_evaluation")
             model_eval = ModelEvaluation(
                 model_evaluation_config=self.config.get_model_evaluation_config(),
                 data_ingestion_artifact=data_ingestion_artifact,
                 data_validation_artifact=data_validation_artifact,
                 model_trainer_artifact=model_trainer_artifact)
+            print("ok")
             return model_eval.initiate_model_evaluation()
         except Exception as e:
             raise CensusException(e, sys) from e
 
     def start_model_pusher(self, model_eval_artifact: ModelEvaluationArtifact) -> ModelPusherArtifact:
         try:
+            print("**" * 50)
+            print("inside start_model_pusher")
             model_pusher = ModelPusher(
                 model_pusher_config=self.config.get_model_pusher_config(),
                 model_evaluation_artifact=model_eval_artifact
             )
+            print("ok")
             return model_pusher.initiate_model_pusher()
         except Exception as e:
             raise CensusException(e, sys) from e
@@ -200,7 +219,12 @@ class Pipeline(Thread):
     def get_experiments_status(cls, limit: int = 5) -> pd.DataFrame:
         try:
             if os.path.exists(Pipeline.experiment_file_path):
+                print("**-"*30)
+                print("pipeline file path :",Pipeline.experiment_file_path)
+
+                #error
                 df = pd.read_csv(Pipeline.experiment_file_path)
+                print("Shape of dataframe : ", df.shape)
                 limit = -1 * int(limit)
                 return df[limit:].drop(columns=["experiment_file_path", "initialization_timestamp"], axis=1)
             else:

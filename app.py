@@ -98,27 +98,30 @@ def train():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
+
     context = {
         CENSUS_DATA_KEY: None,
         MEDIAN_CENSUS_VALUE_KEY: None
     }
 
     if request.method == 'POST':
-        age = np.int64(request.form['age'])
-        work_class = str(request.form['workclass'])
-        fnlwgt = np.int64(request.form['fnlwgt'])
-        education = str(request.form['education'])
-        education_num = np.int64(request.form['education-num'])
-        marital_status = str(request.form['marital-status'])
-        occupation = str(request.form['occupation'])
-        relationship = str(request.form['relationship'])
-        race = str(request.form['race'])
-        sex = str(request.form['sex'])
-        capital_gain = np.int64(request.form['capital-gain'])
-        capital_loss = np.int64(request.form['capital-loss'])
-        hours_per_week = np.int64(request.form['hours-per-week'])
-        country = str(request.form['country'])
-        salary = str(request.form['salary'])
+        age = float(request.form['age'])
+        work_class = request.form['work_class']
+        fnlwgt = float(request.form['fnlwgt'])
+        education = request.form['education']
+        education_num = float(request.form['education_num'])
+        marital_status = request.form['marital_status']
+        occupation = request.form['occupation']
+        relationship = request.form['relationship']
+        race = request.form['race']
+        sex = request.form['sex']
+        capital_gain = float(request.form['capital_gain'])
+        capital_loss = float(request.form['capital_loss'])
+        country = request.form['country']
+        hours_per_week = float(request.form['hours_per_week'])
+
+        print("Input data from")
+        print(age, hours_per_week, country)
 
         census_data = CensusData(age=age,
                                  work_class=work_class,
@@ -133,8 +136,7 @@ def predict():
                                  capital_gain=capital_gain,
                                  capital_loss=capital_loss,
                                  hours_per_week=hours_per_week,
-                                 country=country,
-                                 salary=salary
+                                 country=country
                                  )
         census_df = census_data.get_census_input_data_frame()
         census_predictor = CensusPredictor(model_dir=MODEL_DIR)
@@ -155,6 +157,7 @@ def saved_models_dir(req_path):
     print(f"req_path: {req_path}")
     abs_path = os.path.join(req_path)
     print(abs_path)
+
     # Return 404 if path doesn't exist
     if not os.path.exists(abs_path):
         return abort(404)
@@ -171,7 +174,7 @@ def saved_models_dir(req_path):
         "parent_folder": os.path.dirname(abs_path),
         "parent_label": abs_path
     }
-    return render_template('saved_models_files.html', result=result)
+    return render_template('saved_models_file.html', result=result)
 
 
 @app.route("/update_model_config", methods=['GET', 'POST'])
@@ -223,4 +226,4 @@ def render_log_dir(req_path):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

@@ -42,6 +42,9 @@ def save_numpy_array_data(file_path: str, array: np.array):
     array: np.array data to save
     """
     try:
+        print("array : ------------------------------------")
+        print(array[0:4])
+        print("array --------------------------------------")
         dir_path = os.path.dirname(file_path)
         os.makedirs(dir_path, exist_ok=True)
         with open(file_path, 'wb') as file_obj:
@@ -58,7 +61,7 @@ def load_numpy_array_data(file_path: str) -> np.array:
     """
     try:
         with open(file_path, 'rb') as file_obj:
-            return np.load(file_obj)
+            return np.load(file_obj, allow_pickle=False)
     except Exception as e:
         raise CensusException(e, sys) from e
 

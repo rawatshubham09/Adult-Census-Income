@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from typing import List
 
 PROJECT_NAME = "Census-Income-Prediction"
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 AUTHOR = "Shubham Rawat"
 DESCRIPTION = "This will help in Prediction of Adults having salary more then 50k$ or notpy"
 REQUIREMENT_FILE_NAME = "requirements.txt"

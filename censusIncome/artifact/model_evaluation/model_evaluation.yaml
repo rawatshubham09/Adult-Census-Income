@@ -1,0 +1,5 @@
+best_model:
+  model_path: E:\Datascience class\Internship\AdultCensusIncome\Adult-Census-Income\censusIncome\artifact\model_trainer\2022-08-09-09-08-16\trained_model\model.pkl
+history:
+  2022-08-09-09-08-16:
+    model_path: E:\Datascience class\Internship\AdultCensusIncome\Adult-Census-Income\censusIncome\artifact\model_trainer\2022-08-08-11-12-54\trained_model\model.pkl
